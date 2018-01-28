@@ -10,15 +10,15 @@
                     <button type="button" class="mu-btn mu-btn-icon"><i class="mu-icon-img group-add"></i>그룹 가져오기</button>
                     <!-- 1번째 Tab 내용 -->
                     <div class="mu-tabCont" style="">
-                        <ServiceTree></ServiceTree>
+                        <service-tree></service-tree>
 
                         <div class="mu-right-container">
 		                    <div class="service-list">
-                                <ServiceSearch></ServiceSearch>
+                                <service-search></service-search>
                                 <div class="btn-move">
                                     <button type="button" v-on:click="serviceUserSet" class="mu-btn mu-btn-icon mu-btn-icon-only"><i class="mu-icon-img next"></i></button>
                                 </div>
-                                <ServiceWplc></ServiceWplc>
+                                <service-wplc></service-wplc>
                             </div>
                         </div>   
                     </div>
@@ -35,13 +35,13 @@
 <<script>
 
 import eventBus from '../EventBus.vue';
-import ServiceTree from './ServiceTree.vue';
-import ServiceSearch from './ServiceSearch.vue';
-import ServiceWplc from './ServiceWplc.vue';
+import serviceTree from './ServiceTree.vue';
+import serviceSearch from './ServiceSearch.vue';
+import serviceWplc from './ServiceWplc.vue';
 
 export default {
     name:'ServiceGroupApp'
-    ,components:{ServiceTree,ServiceSearch,ServiceWplc}
+    ,components:{serviceTree,serviceSearch,serviceWplc}
     ,methods:{
         serviceUserSet:function(){
             eventBus.$emit('service-user-set',null);

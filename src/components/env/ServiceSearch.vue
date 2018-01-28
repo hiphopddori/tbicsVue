@@ -67,7 +67,7 @@
 						<td class="tc">
 							<div class="mu-checkbox">
 								<input type="checkbox" v-model="service.checked" v-bind:id="service.svcCd" />
-								<label v-bind:for="service.svcCd"></label>
+								<label v-bind:for="service.svcCd" v-on:click="popDetailWplcInfo"></label>
 							</div>
 						</td>
 						<td>{{service.svcNm}}</td>
@@ -79,7 +79,14 @@
 			<!-- //scroll -->
 		</div>
 		<!-- //grid -->
+		<!--
+		<wplc-detail></wplc-detail>
+		-->
+		<component :is="popView"> </component>
+		
 	</div>
+
+	
 </template>
 
 <script>
@@ -88,8 +95,12 @@ import _ from 'lodash';
 import eventBus from '../EventBus.vue';
 // import singleTest from '../SingleTest.vue';
 import envService from '../../service/EnvService.js'
+//import wplcDetail from './pop/WplcDetail.vue'
 // import serviceApi from '../mixin/service/serviceApi';
+import CONF from '../../config/Config.js'
 import common from '../mixin/common/common';
+
+ const popWplc = () => import("./pop/WplcDetail.vue");
 
 
 export default {
@@ -99,8 +110,15 @@ export default {
 			svcNm:''				//서비스명 조건절
 			,wplcNm:''				//사업자명
 			,chkAll:false
-			,findedServices:{}		//조회 결과 값
+			,findedServices:[]		//조회 결과 값
+			,popView:''
 		}
+	}
+	/*
+	,components:{WplcDetail}
+	*/
+	,components:{
+		'wplc-detail' : popWplc
 	}
 	,created:function(){
 		eventBus.$on('service-tree-click',this.serviceGrp2Service);
@@ -122,11 +140,27 @@ export default {
             });
 		}
 		,checkAll:function(){				// 전체선택
-			
+			/*
 			var isAll = this.chkAll;
 			this.findedServices.forEach(function(service){
 				service.checked = isAll;
 			});
+			*/
+			
+
+			//popView = this.popWplc;
+			//this.popWplc().then(popWplcDetail);
+
+			this.popView = 'wplc-detail';
+			/*
+			this.popWplc.then(someModule => {
+				this.popView = 'wplc-detail'
+				eventBus.$emit('pop-wplcDetail');	
+			});
+			*/
+			// eventBus.$emit('pop-wplcDetail');	
+
+			
 		}
 		,serviceGrp2Service:function(svcCd){
 			// alert(singleTest.singleTest);
@@ -155,13 +189,19 @@ export default {
 			});
 
 			if (seletedSevice.length === 0){
-				alert('선택된 서비스가 없습니다.');
+				
+				this.alert('선택된 서비스가 없습니다.');
 				return;
+				/*
+				this.$alert('선택된 서비스가 없습니다.', CONF.MAIN_TITLE, {
+						confirmButtonText: CONF.DAILOG_OK
+				});
+				return;
+				*/
 			}
-
-			eventBus.$emit('service-user-set-apply',seletedSevice);
-
-			//alert(seletedSevice.length);
+			eventBus.$emit('service-user-set-apply',seletedSevice);	
+		}
+		,popDetailWplcInfo:function(){
 
 		}
 
