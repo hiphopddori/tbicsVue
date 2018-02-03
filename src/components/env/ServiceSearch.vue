@@ -31,7 +31,7 @@
 			<div class="mu-item-group">
 				<button v-on:click="serviceSearch()" type="button" class="mu-btn mu-btn-icon"><i class="mu-icon-img search"></i>조회</button>
 			</div>
-			<div class="num">00건</div>
+			<div class="num">{{findedServices.length}} 건</div>
 		</div>
 		<!-- grid -->
 		<div class="mu-grid-scroll">
@@ -67,10 +67,10 @@
 						<td class="tc">
 							<div class="mu-checkbox">
 								<input type="checkbox" v-model="service.checked" v-bind:id="service.svcCd" />
-								<label v-bind:for="service.svcCd" v-on:click="popDetailWplcInfo"></label>
+								<label v-bind:for="service.svcCd"></label>
 							</div>
 						</td>
-						<td>{{service.svcNm}}</td>
+						<td v-on:click="popWplcDetail(service.svcCd)">{{service.svcNm}}</td>
 						<td class="tc">{{service.wplcCnt}}</td>
 					</tr>
 					</tbody>
@@ -82,11 +82,10 @@
 		<!--
 		<wplc-detail></wplc-detail>
 		-->
-		<component :is="popView"> </component>
+		<component :is="popView" :param='popParam' > </component>
 		
 	</div>
 
-	
 </template>
 
 <script>
@@ -99,10 +98,14 @@ import envService from '../../service/EnvService.js'
 // import serviceApi from '../mixin/service/serviceApi';
 import CONF from '../../config/Config.js'
 import common from '../mixin/common/common';
-
- const popWplc = () => import("./pop/WplcDetail.vue");
-
-
+/*
+const popWplc = () => {
+			import("./pop/WplcDetail.vue").then(() => {
+				//alert("popWplc completed");
+			});
+		};
+*/
+const popWplc = () => import("./pop/WplcDetail.vue");
 export default {
 	name:'ServiceSearch'
 	,data:function(){
@@ -112,18 +115,24 @@ export default {
 			,chkAll:false
 			,findedServices:[]		//조회 결과 값
 			,popView:''
+			,popParam:{}
 		}
 	}
 	/*
 	,components:{WplcDetail}
 	*/
 	,components:{
+		//'wplc-detail' : popWplc
 		'wplc-detail' : popWplc
 	}
 	,created:function(){
 		eventBus.$on('service-tree-click',this.serviceGrp2Service);
 		eventBus.$on('service-user-set',this.serviceUserSet);
-		
+		/*
+		popWplc.then(() => {
+			this.log("popWplc completed");
+		});
+		*/
 	}
 	,mixins:[common]
 	,methods:{
@@ -139,28 +148,20 @@ export default {
                 // this.errors.push(e);
             });
 		}
+		,popWplcDetail:function(svcCd){
+			
+			this.popParam.svcCd = svcCd;
+			this.popView = 'wplc-detail';			
+
+			eventBus.$emit('pop-wplcDetail');	
+
+		}
 		,checkAll:function(){				// 전체선택
-			/*
+			
 			var isAll = this.chkAll;
 			this.findedServices.forEach(function(service){
 				service.checked = isAll;
 			});
-			*/
-			
-
-			//popView = this.popWplc;
-			//this.popWplc().then(popWplcDetail);
-
-			this.popView = 'wplc-detail';
-			/*
-			this.popWplc.then(someModule => {
-				this.popView = 'wplc-detail'
-				eventBus.$emit('pop-wplcDetail');	
-			});
-			*/
-			// eventBus.$emit('pop-wplcDetail');	
-
-			
 		}
 		,serviceGrp2Service:function(svcCd){
 			// alert(singleTest.singleTest);
@@ -201,10 +202,7 @@ export default {
 			}
 			eventBus.$emit('service-user-set-apply',seletedSevice);	
 		}
-		,popDetailWplcInfo:function(){
-
-		}
-
+		
 	}
 }
 </script>

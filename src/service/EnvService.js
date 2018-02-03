@@ -10,6 +10,10 @@ export default {
         return axios.post('envset/selectService.do',param,CONF.HEADERS_JSON);
         //return this.$http.post('envset/getVirtualCoin.do',param,CONF.HEADERS_JSON);
     }
+    ,service2Wplc:(svcCd) => {
+        let param = {svcCd:svcCd};
+        return axios.post('envset/selectWplc.do',param,CONF.HEADERS_JSON);
+    }
     ,serviceGrpTree:()=>{
         let param = {incService:'N'};
         return axios.post('envset/selectServiceGroupTreeList.do',param,CONF.HEADERS_JSON);    

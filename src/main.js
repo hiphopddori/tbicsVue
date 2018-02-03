@@ -8,8 +8,8 @@ import router from './router'
 import VModal from 'vue-js-modal'
 import {MessageBox} from 'element-ui'
 
-import './assets/css/common.css'
-import './assets/css/layout_top.css'
+import './assets/css/common.css'          
+import './assets/css/layout_top.css'      
 import './assets/css/style.css'
 import 'element-ui/lib/theme-chalk/index.css'
 
