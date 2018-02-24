@@ -45,6 +45,7 @@ export default {
     ,methods:{
         serviceUserSet:function(){
             eventBus.$emit('service-user-set',null);
+            //this.$store.mutations.commit();
         }
     }
 }

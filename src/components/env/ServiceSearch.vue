@@ -70,7 +70,7 @@
 								<label v-bind:for="service.svcCd"></label>
 							</div>
 						</td>
-						<td v-on:click="popWplcDetail(service.svcCd)">{{service.svcNm}}</td>
+						<td v-on:click="popWplcDetail(service.svcCd,service.svcNm)">{{service.svcNm}}</td>
 						<td class="tc">{{service.wplcCnt}}</td>
 					</tr>
 					</tbody>
@@ -98,6 +98,8 @@ import envService from '../../service/EnvService.js'
 // import serviceApi from '../mixin/service/serviceApi';
 import CONF from '../../config/Config.js'
 import common from '../mixin/common/common';
+import * as mutationType from '../../store/mutation-types'
+
 /*
 const popWplc = () => {
 			import("./pop/WplcDetail.vue").then(() => {
@@ -148,9 +150,10 @@ export default {
                 // this.errors.push(e);
             });
 		}
-		,popWplcDetail:function(svcCd){
+		,popWplcDetail:function(svcCd,svcNm){
 			
 			this.popParam.svcCd = svcCd;
+			this.popParam.svcNm = svcNm;
 			this.popView = 'wplc-detail';			
 
 			eventBus.$emit('pop-wplcDetail');	
@@ -200,7 +203,9 @@ export default {
 				return;
 				*/
 			}
-			eventBus.$emit('service-user-set-apply',seletedSevice);	
+			
+			//eventBus.$emit('service-user-set-apply',seletedSevice);			store로 전환함
+			this.$store.commit(mutationType.ADD_USER_SERVICE_MUTATION,seletedSevice);
 		}
 		
 	}

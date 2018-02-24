@@ -2,11 +2,15 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 // http://element.eleme.io/#/en-US/component/quickstart
 import Vue from 'vue'
+import {store} from './store'
 import App from './App'
 import axios from 'axios'
+
 import router from './router'
 import VModal from 'vue-js-modal'
 import {MessageBox} from 'element-ui'
+
+
 
 import './assets/css/common.css'          
 import './assets/css/layout_top.css'      
@@ -28,7 +32,8 @@ Vue.use(VModal);
 /* eslint-disable */
 new Vue({
   el: '#app',
+  store,
   router,
   template: '<App/>',
-  components: { App}
+  components: {App}
 })

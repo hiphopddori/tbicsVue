@@ -4,9 +4,9 @@
         <div class="mu-grid-top">
             <div class="mu-title"><i class="mu-icon-img folder"></i>그룹명 : AMI (지능형원격검침)</div>
             <div class="mu-item-group fr">
-                <button type="button" class="mu-btn mu-btn-icon"><i class="mu-icon-img trash"></i>삭제</button>
+                <button type="button" v-on:click="deleteUserService" class="mu-btn mu-btn-icon"><i class="mu-icon-img trash"></i>삭제</button>
             </div>
-            <div class="num">Total : 00건</div>
+            <div class="num">Total : {{this.$store.state.userSetServices.length}}건</div>
         </div>
         <!-- grid -->
         <div class="mu-grid-scroll">
@@ -38,11 +38,11 @@
                         <col width="180">
                     </colgroup>
                     <tbody>
-                        <tr v-for="service in userSetServices">
+                        <tr v-for="service in this.$store.state.userSetServices">
                             <td class="tc">
                                 <div class="mu-checkbox">
-                                    <input type="checkbox" v-bind:id="service.svcCd" />
-                                    <label v-bind:for="service.svcCd"></label>
+                                    <input type="checkbox" v-bind:id="'wplc' + service.svcCd" />
+                                    <label v-bind:for="'wplc' + service.svcCd"></label>
                                 </div>
                             </td>
                             <td><span>{{service.svcNm}}</span></td>
@@ -61,7 +61,8 @@
 <script>
 
 import eventBus from '../EventBus.vue';
-import serviceApi from '../mixin/service/serviceApi';
+import * as mutationType from '../../store/mutation-types'
+// import serviceApi from '../mixin/service/serviceApi';
 
 export default {
 	name:'ServiceWplc'
@@ -69,17 +70,31 @@ export default {
 		return {
 			svcNm:''				//서비스명 조건절
 			,wplcNm:''				//사업자명
-			,userSetServices:{}		//조회 결과 값
+			//,userSetServices:{}	//조회 결과 값 20180213 store에서 관리 
 		}
     }
     ,created:function(){
-        eventBus.$on('service-user-set-apply',this.serviceUserSetAppy);
+        //eventBus.$on('service-user-set-apply',this.serviceUserSetAppy);
     }
-    ,mixins:[serviceApi]
+    // ,mixins:[serviceApi]
     ,methods:{
         serviceUserSetAppy:function(selectedService){
-            this.userSetServices = selectedService;
-        }            
+            //this.userSetServices = selectedService;
+        }   
+        ,deleteUserService:function(svcCd){
+            
+            let seletedSevice = _.filter(this.$store.state.userSetServices,function(service){
+					return service.checked;
+			});
+
+			if (seletedSevice.length === 0){
+				
+				this.alert('선택된 서비스가 없습니다.');
+				return;
+			}
+			
+            this.$store.commit(mutationType.DEL_USER_SERVICE_MUTATUIN,seletedSevice);
+        }         
     }
 }
 </script>

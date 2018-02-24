@@ -4,7 +4,7 @@
     
 		<div class="mu-dialog mu-fix-foot" style="width:600px;height:480px;">
 			<div class="mu-dialog-head">
-				<span class="mu-title">한국전력공사</span>
+				<span class="mu-title">{{param.svcNmsvcNmsvcNm}}</span>
 				<button type="button" v-on:click="close()" class="mu-btn mu-btn-icon mu-btn-icon-only"><i class="mu-icon-img close"></i></button>
 			</div>
 			<div class="mu-dialog-body">
@@ -57,9 +57,9 @@ import common from '../../mixin/common/common';
 import envService from '../../../service/EnvService.js'
 import eventBus from '../../EventBus.vue';
 
-//#############################################
+// #############################################
 // alert('WplcDetail');	// dynamic loading Test
-//#############################################
+// #############################################
 
 export default {
     name:'WplcDetail'
@@ -76,7 +76,7 @@ export default {
 		param:{
 			type: Object
 			,default: function () {
-				return { svcCd: '' }
+				return { svcCd: '', svcNm:'' }
 			}
 		} 
 	}
@@ -93,15 +93,12 @@ export default {
 			this.$modal.show('wplcDetail');
 			var vm = this;
 
-			envService.service2Wplc(svcCd)
-			.then(function(response) {
+			envService.service2Wplc(svcCd).then(function(response) {
 				vm.wplcDatas = response.data.result;
-				//alert(response.data.result);
             })
             .catch(function(e) {
                 // this.errors.push(e);
 			});
-			
         }
 		,close:function(){
 			this.$modal.hide('wplcDetail');

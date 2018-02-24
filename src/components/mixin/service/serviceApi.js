@@ -1,3 +1,5 @@
+
+/*
 import CONF from '../../../config/Config.js'
 
 
@@ -24,3 +26,4 @@ export default {
         }
     }
 }
+*/

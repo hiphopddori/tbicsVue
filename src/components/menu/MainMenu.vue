@@ -54,10 +54,9 @@
 </template>
 
 
-</<script>
+<script>
 export default {
     name:'MainMenu'
-
 
 }
 </script>
