@@ -12,7 +12,7 @@ export const store = new Vuex.Store({
        
         [mutationType.ADD_USER_SERVICE_MUTATION](state,payLoad){
             // var vm = this;
-            
+            /*
             let addService = _.filter(payLoad,function(selSvc){
                 let addable = true;
                 _.every(state.userSetServices,function(selectedSvd){
@@ -26,10 +26,9 @@ export const store = new Vuex.Store({
                 }); 
                 return addable;
             });
-        
             Array.prototype.push.apply(state.userSetServices,addService);
+            */
             
-            /*
             _.every(payLoad,function(selSvc){
                 let addable = true;
                 let exit = false;
@@ -47,7 +46,7 @@ export const store = new Vuex.Store({
                }
                return true;
             });
-            */
+            
             //Array.prototype.push.apply(state.userSetServices,[{svcNm:"한전1",svcCd:11,wplcCnt:2},{svcNm:'한전2',svcCd:12,wplcCnt:3}]);
         }
         ,[mutationType.DEL_USER_SERVICE_MUTATUIN](state,payLoad){

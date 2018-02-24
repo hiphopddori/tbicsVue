@@ -41,7 +41,7 @@
                         <tr v-for="service in this.$store.state.userSetServices">
                             <td class="tc">
                                 <div class="mu-checkbox">
-                                    <input type="checkbox" v-bind:id="'wplc' + service.svcCd" />
+                                    <input type="checkbox" v-model="service.checked" v-bind:id="'wplc' + service.svcCd" />
                                     <label v-bind:for="'wplc' + service.svcCd"></label>
                                 </div>
                             </td>
@@ -62,6 +62,7 @@
 
 import eventBus from '../EventBus.vue';
 import * as mutationType from '../../store/mutation-types'
+import common from '../mixin/common/common';
 // import serviceApi from '../mixin/service/serviceApi';
 
 export default {
@@ -76,12 +77,12 @@ export default {
     ,created:function(){
         //eventBus.$on('service-user-set-apply',this.serviceUserSetAppy);
     }
-    // ,mixins:[serviceApi]
+    ,mixins:[common]
     ,methods:{
         serviceUserSetAppy:function(selectedService){
             //this.userSetServices = selectedService;
         }   
-        ,deleteUserService:function(svcCd){
+        ,deleteUserService:function(){
             
             let seletedSevice = _.filter(this.$store.state.userSetServices,function(service){
 					return service.checked;
