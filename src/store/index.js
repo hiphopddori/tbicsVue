@@ -47,7 +47,8 @@ export const store = new Vuex.Store({
                return true;
             });
             
-            //Array.prototype.push.apply(state.userSetServices,[{svcNm:"한전1",svcCd:11,wplcCnt:2},{svcNm:'한전2',svcCd:12,wplcCnt:3}]);
+            
+            // Array.prototype.push.apply(state.userSetServices,[{svcNm:"한전1",svcCd:11,wplcCnt:2},{svcNm:'한전2',svcCd:12,wplcCnt:3}]);
         }
         ,[mutationType.DEL_USER_SERVICE_MUTATUIN](state,payLoad){
             
@@ -61,6 +62,8 @@ export const store = new Vuex.Store({
                   })
                   return del;
             });
+
+            //Vue.set(state,'userSetServices',state.userSetServices);
         }
     }
 })
