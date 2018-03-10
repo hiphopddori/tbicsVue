@@ -5,12 +5,10 @@
         <nav class="mu-gnb fl">
             <!-- Depth1 -->
             <ul class="mu-h-menu fl">
-            <li class="active"><a href="#"><span>B2B 감시</span></a><!-- 현재 메뉴 위치 class="active" 추가 -->
+            <li class="active"><a href="#"><span>Map</span></a><!-- 현재 메뉴 위치 class="active" 추가 -->
                 <!-- Depth2 -->
                 <ul class="mu-list">
-                <li><a href="#"><span>서비스 그룹 감시</span></a></li>
-                <li class="active"><a href="#"><span>사업장 감시</span></a></li><!--  현재 메뉴 위치 class="active" 추가 -->
-                <li><a href="#"><span>전자발찌 집중 감시</span></a></li>
+                <li class="active"><router-link to="/map"><span>품질지도</span></router-link></li>                
                 </ul>
             </li>
             <li><a href="#"><span>B2B 분석</span></a>
@@ -28,8 +26,7 @@
             </li>
             <li><a href="#"><span>환경설정</span></a>
                 <ul class="mu-list">
-                <li><a href="#"><span>서비스 그룹</span></a></li>
-                <li><a href="#"><span>서비스 임계치</span></a></li>
+                <li><router-link to="/service"><span>서비스 그룹</span></router-link></li>                
                 </ul>
             </li>
             <li><a href="#"><span>관리자</span></a>

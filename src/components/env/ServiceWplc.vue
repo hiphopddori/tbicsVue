@@ -95,11 +95,12 @@ export default {
 			}
 			
             this.$store.commit(mutationType.DEL_USER_SERVICE_MUTATUIN,seletedSevice);
+            
         }         
     }
 }
 </script>
 
-<<style>
+<style>
 </style>
 

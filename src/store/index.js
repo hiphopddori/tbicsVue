@@ -51,8 +51,7 @@ export const store = new Vuex.Store({
             // Array.prototype.push.apply(state.userSetServices,[{svcNm:"한전1",svcCd:11,wplcCnt:2},{svcNm:'한전2',svcCd:12,wplcCnt:3}]);
         }
         ,[mutationType.DEL_USER_SERVICE_MUTATUIN](state,payLoad){
-            
-            _.remove(state.userSetServices,function(selectedSvc){
+           _.remove(state.userSetServices,function(selectedSvc){
                   let del = false;
                   _.every(payLoad,function(deleteInfo){
                         if (selectedSvc.svcCd === deleteInfo.svcCd){
@@ -62,8 +61,30 @@ export const store = new Vuex.Store({
                   })
                   return del;
             });
+            // 추후 다른방법 검토
+            var deep = _.cloneDeep(state.userSetServices);
+            state.userSetServices = deep;
 
-            //Vue.set(state,'userSetServices',state.userSetServices);
+            /* splices는 되지만 실제 상용에서 사용하기 애매함 
+             _.every(payLoad,function(deleteInfo){
+                let idx = 0;
+                let match = false;
+                
+                _.every(state.userSetServices,function(selectedSvc){
+                    if (selectedSvc.svcCd === deleteInfo.svcCd){
+                        match = true;    
+                    }
+                    idx++;
+                    
+                    state.userSetServices.splice(idx,1);    
+                    return !match;
+                })
+                    
+            });             
+            */
+            
+            
+            
         }
     }
 })

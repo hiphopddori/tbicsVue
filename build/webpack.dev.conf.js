@@ -8,6 +8,7 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
@@ -51,6 +52,17 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
+    new HtmlWebpackExternalsPlugin(
+      // See API section
+      {
+      externals: [
+        {
+          module: 'daum',
+          entry: 'http://apis.daum.net/maps/maps3.js?apikey=a968fca827936e15c925892df60047630b7e8c89',
+          global: 'daum',
+        },
+      ],
+      }),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',

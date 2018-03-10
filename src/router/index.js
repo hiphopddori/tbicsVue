@@ -8,17 +8,21 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/service',
       name: '서비스 구룹 관리',
       component:() => import('@/components/env/ServiceGroupApp') 
     }
-    /*
     ,
     {
-      path: '/env',
-      name: '서비스 구룹 관리',
-      component: ServiceGroupApp
+      path: '/map',
+      name: '품질지도 분석',
+      component:() => import('@/components/map/QualityAnalysis')
     }
-    */
+    ,
+    {
+      path: '/',
+      name: '품질지도 분석',
+      component:() => import('@/components/map/QualityAnalysis')
+    }
   ]
 })
